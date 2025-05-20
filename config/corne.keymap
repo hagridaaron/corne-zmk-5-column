@@ -63,10 +63,10 @@
 
         game {
             bindings = <
-&trans  &kp Q     &kp UP    &kp E      &kp R     &kp T        &kp Y    &kp U        &kp I      &kp O    &kp P     &trans
-&trans  &kp LEFT  &kp DOWN  &kp RIGHT  &kp F     &kp G        &kp H    &kp J        &kp K      &kp L    &kp SEMI  &trans
-&trans  &kp Z     &kp X     &kp C      &kp V     &kp B        &kp N    &kp M        &kp COMMA  &kp DOT  &kp FSLH  &trans
-                            &trans     &kp BSPC  &kp SPACE    &kp RET  &lt 0 SPACE  &kp ESC
+&trans  &kp TAB    &kp W     &kp UP    &kp R      &kp T        &kp Y    &kp U        &kp I      &kp O    &kp P     &trans
+&trans  &kp RSHFT  &kp LEFT  &kp DOWN  &kp RIGHT  &kp G        &kp H    &kp J        &kp K      &kp L    &kp SEMI  &trans
+&trans  &kp Z      &kp X     &kp C     &kp V      &kp B        &kp N    &kp M        &kp COMMA  &kp DOT  &kp FSLH  &trans
+                             &trans    &kp BSPC   &kp SPACE    &kp RET  &lt 0 SPACE  &kp ESC
             >;
         };
     };
