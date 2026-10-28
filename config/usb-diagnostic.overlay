@@ -1,0 +1,7 @@
+/* CDC poll_out otherwise drops bytes once its ring buffer is full.
+ * Backpressure is safe here because only the deferred logger waits; matrix
+ * producers use a nonblocking overflow-enabled log queue.
+ */
+&snippet_zmk_usb_logging_uart {
+    hw-flow-control;
+};
