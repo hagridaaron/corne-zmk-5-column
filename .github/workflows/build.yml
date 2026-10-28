@@ -1,5 +1,28 @@
+name: Corne diagnostic firmware
 on: [push, pull_request, workflow_dispatch]
-
+permissions:
+  contents: read
 jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.2.0
+  release:
+    needs: build
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/diag/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: firmware
+          path: firmware
+      - name: Publish diagnostic and restoration images
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          COMMIT: ${{ github.sha }}
+        run: |
+          cd firmware
+          test "$(find . -name '*.uf2' | wc -l)" -eq 4
+          sha256sum *.uf2 > SHA256SUMS
+          gh release create "diag-${COMMIT}" *.uf2 SHA256SUMS             --target "$COMMIT" --prerelease --latest=false             --title "Corne USB diagnostic ${COMMIT:0:7}"             --notes "Temporary diagnostic images and matched normal restoration pair. USB logging is local to the named half; use right diagnostic for right raw matrix. No settings reset. ZMK pinned to ac7f75b8591d39aaf3b66b9d26f26c9ed921a009 (historical main preceding original successful build; original logs unavailable). Do not flash without confirming board identity."
